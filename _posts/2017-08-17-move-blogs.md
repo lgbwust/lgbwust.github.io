@@ -5,7 +5,7 @@ categories: [随笔]
 tags: 工作生活
 ---
 
-# 博客改用jekyll和Github Pages来托管
+## 博客改用jekyll和Github Pages来托管
 
 > 论博客维护的重要性
 
