@@ -18,7 +18,7 @@ tags: 无私
                                ![刘老师近照][1]
 
 
-  [1]: /assert/blogImg/Teacher_liu.jpg
+  [1]: /images/posts/Teacher_liu.jpg
 
 　　在九年的教学生涯中，她爱岗敬业，勤奋踏实。为了提高自己的业务能力，她努力钻研，积极进取。
 

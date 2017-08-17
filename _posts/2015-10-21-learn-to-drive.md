@@ -77,5 +77,5 @@ tags: 生活
 ----------
 原记于2015年07月30号，现迁于此！
 
-  [1]: /assert/blogImg/zhuankou.jpg
+  [1]: /images/posts/zhuankou.jpg
 	` 注：本文转载自： http://www.hbgqt.org.cn/zt/qchqn/ddhqn/201408/t20140813_69353.shtml  `
