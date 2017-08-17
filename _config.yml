@@ -25,6 +25,7 @@ syntax_highlighter: rouge
 #  coderay:
 #  coderay_line_numbers:  nil
 
+#设置本地端口号
 port: 4001
 
 # White-listed plugins
