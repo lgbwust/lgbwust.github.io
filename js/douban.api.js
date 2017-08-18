@@ -4,9 +4,9 @@ function DoubanApi() {
 		user:"159011911",
 		api:"08242004429e34bb186c600cc7da9e31",
 		book:[{status:"reading",maxnum:20},{status:"read",maxnum:100},{status:"wish",maxnum:100}],
-		bookreadingtitle:"Oops, 豆瓣API维护中...",
-		//bookreadtitle:"读过...",
-		//bookwishtitle:"想读..."
+		bookreadingtitle:"页面出错了...",
+		bookreadtitle:"Oops...",
+		bookwishtitle:"豆瓣API维护中..."
 	};
 }
 
