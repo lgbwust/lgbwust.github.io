@@ -2,7 +2,7 @@
 layout: post
 title: 一些想说的话
 categories: [生活]
-tags: 
+tags: 生活随笔
 ---
 
 > 教师节快乐
