@@ -72,6 +72,7 @@ String str = stream.collect(Collectors.joining()).toString();
 
 #### 典型用法介绍
 
+
 ##### map/flatMap
 
 请看下面的例子
