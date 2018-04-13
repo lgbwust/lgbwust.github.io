@@ -70,13 +70,13 @@ String str = stream.collect(Collectors.joining()).toString();
 - Short-circuiting
 `nyMatch、 allMatch、 noneMatch、 findFirst、 findAny、 limit`
 
-#### 典型用法介绍
+>典型用法介绍
 
  
-##### map/flatMap
+#### map/flatMap
 
 请看下面的例子
-```
+```java
 //转换大写
 List<String> output = wordList.stream().
 map(String::toUpperCase).
@@ -102,11 +102,11 @@ flatMap((childList) -> childList.stream());
 //flatMap 把 input Stream 中的层级结构扁平化，就是将最底层元素抽出来放到一起，最终 output 的新 Stream 里面已经没有 List 了，都是直接的数字。
 ```
 
-##### filter
+#### filter
 
 filter 对原始 Stream 进行某项测试，通过测试的元素被留下来生成一个新 Stream。
 
-```
+```java
 // 留下偶数
 Integer[] sixNums = {1, 2, 3, 4, 5, 6};
 Integer[] evens =
@@ -120,11 +120,11 @@ List<String> output = reader.lines().
  //这段代码首先把每行的单词用 flatMap 整理到新的 Stream，然后保留长度不为 0 的，就是整篇文章中的全部单词了。
 ```
 
-##### forEach
+#### forEach
 
 forEach 方法接收一个 Lambda 表达式，然后在 Stream 的每一个元素上执行该表达式。
 
-```
+```java
 //打印姓名（forEach 和 pre-java8 的对比）
 // Java 8
 roster.stream()
@@ -143,14 +143,14 @@ for (Person p : roster) {
 但一般认为，forEach 和常规 for 循环的差异不涉及到性能，它们仅仅是函数式风格与传统 Java 风格的差别。
 
 另外一点需要注意，forEach 是 terminal 操作，因此它执行后，Stream 的元素就被“消费”掉了，你无法对一个 Stream 进行两次 terminal 运算。下面的代码是错误的：
-```
+```java
 stream.forEach(element -> doOneThing(element));
 stream.forEach(element -> doAnotherThing(element));
 ```
 
 相反，具有相似功能的 intermediate 操作 peek 可以达到上述目的。如下是出现在该 api javadoc 上的一个示例。
 
-```
+```java
 //peek 对每个元素执行操作并返回一个新的 Stream
 Stream.of("one", "two", "three", "four")
  .filter(e -> e.length() > 3)
@@ -162,13 +162,13 @@ Stream.of("one", "two", "three", "four")
 
 forEach 不能修改自己包含的本地变量值，也不能用 break/return 之类的关键字提前结束循环。
 
-##### findFirst
+#### findFirst
 
 这是一个 termimal 兼 short-circuiting 操作，它总是返回 Stream 的第一个元素，或者空。
 
 这里比较重点的是它的返回值类型：Optional。这也是一个模仿 Scala 语言中的概念，作为一个容器，它可能含有某值，或者不包含。使用它的目的是尽可能避免 NullPointerException。
 
-```
+```java
 //Optional 的两个用例
 String strA = " abcd ", strB = null;
 print(strA);
