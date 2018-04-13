@@ -63,7 +63,7 @@ http://docs.oracle.com/javase/9/jshell/toc.htm
 
 现在接口真是越来越像强大了，先是可以编写方法，现在连访问权限都可以定义成private的了，我在网上copy了一个例子:
 
-```
+```java
 public interface MyInterface {
 
   void normalInterfaceMethod();
@@ -80,7 +80,7 @@ public interface MyInterface {
 
 ### 更改了 HTTP 调用的相关api
 
-```
+```java
 HttpClient client = HttpClient.newHttpClient();
 
 HttpRequest req =
@@ -113,7 +113,7 @@ http://liugang594.iteye.com/blog/2063432
 ### JEP 286: 局部变量类型推断
 Java 10 引入了局部变量类型推断，现在我们可以使用 var 替换局部变量声明时的类型部分，从而避免耗费精力去写出那些显而易见的类型。 var 可以用于局部变量声明、增强型 for 循环的循环变量声明、twr 内资源变量声明，在 Java 11 中还将支持用 var 替代 lambda 参数类型（JEP 323）。下面这个例子展示了 var 的用法：
 
-```
+```java
 var l = List.of("Java", "Scala", "Kotlin");
 var stream = l.stream();
 var count = 0
@@ -124,7 +124,7 @@ for (var len : stream.mapToInt(String::length).toArray()) {
 
 为了兼容原有代码，var 不是一个关键字，而是一个保留类型，这意味着你还是能像这样 var 当做一个变量名：
 
-```
+```java
 void f() {
   int var = 10;
 }
@@ -132,7 +132,7 @@ void f() {
 
 var 还有一个特殊的特性：在用匿名内部类初始化 var 声明的变量时，这个变量会被推断成一个局部的类型，所以你可以这样：
 
-```
+```java
 final var o = new Object() {
   public void f() {
     System.out.println("Hello world!");
