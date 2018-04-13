@@ -28,7 +28,7 @@ Stream 作为 Java 8 的一大亮点，它与 java.io 包里的 InputStream 和 
 
 ### Stream的构造与转换
 
-```
+```java
 //构造流的几种常见方法
 // 1. Individual values
 Stream stream = Stream.of("a", "b", "c");
@@ -72,7 +72,7 @@ String str = stream.collect(Collectors.joining()).toString();
 
 #### 典型用法介绍
 
-
+ 
 ##### map/flatMap
 
 请看下面的例子
