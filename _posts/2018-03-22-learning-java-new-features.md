@@ -1,6 +1,6 @@
 ---
 layout: post
-title: jdk8-10新特性学习总结
+title: jdk8-10新特性学习简介
 categories: [java]
 tags: code
 ---
