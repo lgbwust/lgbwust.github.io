@@ -373,6 +373,14 @@ All are adult? false
 Any child? true
 ```
 
+### Stream API 进阶用法
+
+#### 自己生成Stream
+
+#### 用 Collectors 来进行 reduction 操作
+
+## 总结
+
 
 
 
