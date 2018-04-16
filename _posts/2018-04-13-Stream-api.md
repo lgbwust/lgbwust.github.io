@@ -7,6 +7,8 @@ tags: code
 
 > good good study, day day up~
 
+====
+
 ## Stream API简介
 
 Stream 作为 Java 8 的一大亮点，它与 java.io 包里的 InputStream 和 OutputStream 是完全不同的概念。它也不同于 StAX 对 XML 解析的 Stream，也不是 Amazon Kinesis 对大数据实时处理的 Stream。Java 8 中的 Stream 是对集合（Collection）对象功能的增强，它专注于对集合对象进行各种非常便利、高效的聚合操作（aggregate operation），或者大批量数据操作 (bulk data operation)。Stream API 借助于同样新出现的 Lambda 表达式，极大的提高编程效率和程序可读性。同时它提供串行和并行两种模式进行汇聚操作，并发模式能够充分利用多核处理器的优势，使用 fork/join 并行方式来拆分任务和加速处理过程。通常编写并行代码很难而且容易出错, 但使用 Stream API 无需编写一行多线程的代码，就可以很方便地写出高性能的并发程序。所以说，Java 8 中首次出现的 java.util.stream 是一个函数式语言+多核时代综合影响的产物。
@@ -377,20 +379,119 @@ Any child? true
 
 #### 自己生成Stream
 
+**Stream.generate**
+
+通过实现 Supplier 接口，你可以自己来控制流的生成。这种情形通常用于随机数、常量的 Stream，或者需要前后元素间维持着某种状态信息的 Stream。把 Supplier 实例传递给 Stream.generate() 生成的 Stream，默认是串行（相对 parallel 而言）但无序的（相对 ordered 而言）。由于它是无限的，在管道中，必须利用 limit 之类的操作限制 Stream 大小。
+
+```java
+//生成 10 个随机整数
+Random seed = new Random();
+Supplier<Integer> random = seed::nextInt;
+Stream.generate(random).limit(10).forEach(System.out::println);
+//Another way
+IntStream.generate(() -> (int) (System.nanoTime() % 100)).
+limit(10).forEach(System.out::println);
+```
+
+Stream.generate() 还接受自己实现的 Supplier。例如在构造海量测试数据的时候，用某种自动的规则给每一个变量赋值；或者依据公式计算 Stream 的每个元素值。这些都是维持状态信息的情形。
+
+```java
+//自实现 Supplier
+Stream.generate(new PersonSupplier()).
+limit(10).
+forEach(p -> System.out.println(p.getName() + ", " + p.getAge()));
+private class PersonSupplier implements Supplier<Person> {
+ private int index = 0;
+ private Random random = new Random();
+ @Override
+ public Person get() {
+ return new Person(index++, "StormTestUser" + index, random.nextInt(100));
+ }
+}
+
+output:
+StormTestUser1, 9
+StormTestUser2, 12
+StormTestUser3, 88
+StormTestUser4, 51
+StormTestUser5, 22
+StormTestUser6, 28
+StormTestUser7, 81
+StormTestUser8, 51
+StormTestUser9, 4
+StormTestUser10, 76
+```
+**Stream.iterate**
+
+iterate 跟 reduce 操作很像，接受一个种子值，和一个 UnaryOperator（例如 f）。然后种子值成为 Stream 的第一个元素，f(seed) 为第二个，f(f(seed)) 第三个，以此类推。
+
+```java
+Stream.iterate(0, n -> n + 3).limit(10). forEach(x -> System.out.print(x + " "));
+
+output:
+0 3 6 9 12 15 18 21 24 27
+```
+与 Stream.generate 相仿，在 iterate 时候管道必须有 limit 这样的操作来限制 Stream 大小。
+
 #### 用 Collectors 来进行 reduction 操作
+
+java.util.stream.Collectors 类的主要作用就是辅助进行各类有用的 reduction 操作，例如转变输出为 Collection，把 Stream 元素进行归组。
+
+**groupingBy/partitioningBy**
+
+```java
+//按照年龄归组
+Map<Integer, List<Person>> personGroups = Stream.generate(new PersonSupplier()).
+ limit(100).
+ collect(Collectors.groupingBy(Person::getAge));
+Iterator it = personGroups.entrySet().iterator();
+while (it.hasNext()) {
+ Map.Entry<Integer, List<Person>> persons = (Map.Entry) it.next();
+ System.out.println("Age " + persons.getKey() + " = " + persons.getValue().size());
+}
+```
+上面的 code，首先生成 100 人的信息，然后按照年龄归组，相同年龄的人放到同一个 list 中，可以看到如下的输出：
+
+output:
+Age 0 = 2
+Age 1 = 2
+Age 5 = 2
+Age 8 = 1
+Age 9 = 1
+Age 11 = 2
+……
+
+```java
+//按照未成年人和成年人归组
+Map<Boolean, List<Person>> children = Stream.generate(new PersonSupplier()).
+ limit(100).
+ collect(Collectors.partitioningBy(p -> p.getAge() < 18));
+System.out.println("Children number: " + children.get(true).size());
+System.out.println("Adult number: " + children.get(false).size());
+
+output:
+Children number: 23 
+Adult number: 77
+```
+在使用条件“年龄小于 18”进行分组后可以看到，不到 18 岁的未成年人是一组，成年人是另外一组。partitioningBy 其实是一种特殊的 groupingBy，它依照条件测试的是否两种结果来构造返回的数据结构，get(true) 和 get(false) 能即为全部的元素对象。
 
 ## 总结
 
+总之，Stream 的特性可以归纳为：
 
+- 不是数据结构
+- 它没有内部存储，它只是用操作管道从 source（数据结构、数组、generator function、IO channel）抓取数据。
+- 它也绝不修改自己所封装的底层数据结构的数据。例如 Stream 的 filter 操作会产生一个不包含被过滤元素的新 Stream，而不是从 source 删除那些元素。
+- 所有 Stream 的操作必须以 lambda 表达式为参数
+- 不支持索引访问
+- 你可以请求第一个元素，但无法请求第二个，第三个，或最后一个。不过请参阅下一项。
+- 很容易生成数组或者 List
+- 惰性化
+- 很多 Stream 操作是向后延迟的，一直到它弄清楚了最后需要多少数据才会开始。
+- Intermediate 操作永远是惰性化的。
+- 并行能力
+- 当一个 Stream 是并行化的，就不需要再写多线程代码，所有对它的操作会自动并行进行的。
+- 可以是无限的
+- 集合有固定大小，Stream 则不必。limit(n) 和 findFirst() 这类的 short-circuiting 操作可以对无限的 Stream 进行运算并很快完成。
 
-
-
-
-
-
-
-
-
-
-
-
+====
