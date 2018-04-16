@@ -35,7 +35,8 @@ Stream 的另外一大特点是，数据源本身可以是无限的。
 
 获取一个数据源（source）→ 数据转换→执行操作获取想要的结果，每次转换原有 Stream 对象不改变，返回一个新的 Stream 对象（可以有多次转换），这就允许对其操作可以像链条一样排列，变成一个管道，如下图所示。
 
-![图 1. 流管道 (Stream Pipeline) 的构成][/images/posts/Teacher_liu.jpg]
+![图 1. 流管道 (Stream Pipeline) 的构成][1]
+[1]: /images/posts/Teacher_liu.jpg
 
 有多种方式生成 Stream Source：
 
