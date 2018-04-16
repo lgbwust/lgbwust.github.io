@@ -224,6 +224,154 @@ concat = Stream.of("a", "B", "c", "D", "e", "F").
 
 上面代码例如第一个示例的 reduce()，第一个参数（空白字符）即为起始值，第二个参数（String::concat）为 BinaryOperator。这类有起始值的 reduce() 都返回具体的对象。而对于第四个示例没有起始值的 reduce()，由于可能没有足够的元素，返回的是 Optional，请留意这个区别。
 
+#### limit/skip
+
+limit 返回 Stream 的前面 n 个元素；skip 则是扔掉前 n 个元素（它是由一个叫 subStream 的方法改名而来）。
+
+```java
+// limit 和 skip 对运行次数的影响
+public void testLimitAndSkip() {
+ List<Person> persons = new ArrayList();
+ for (int i = 1; i <= 10000; i++) {
+ Person person = new Person(i, "name" + i);
+ persons.add(person);
+ }
+List<String> personList2 = persons.stream().
+map(Person::getName).limit(10).skip(3).collect(Collectors.toList());
+ System.out.println(personList2);
+}
+private class Person {
+ public int no;
+ private String name;
+ public Person (int no, String name) {
+ this.no = no;
+ this.name = name;
+ }
+ public String getName() {
+ System.out.println(name);
+ return name;
+ }
+}
+
+output:
+name1
+name2
+name3
+name4
+name5
+name6
+name7
+name8
+name9
+name10
+[name4, name5, name6, name7, name8, name9, name10]
+```
+这是一个有 10，000 个元素的 Stream，但在 short-circuiting 操作 limit 和 skip 的作用下，管道中 map 操作指定的 getName() 方法的执行次数为 limit 所限定的 10 次，而最终返回结果在跳过前 3 个元素后只有后面 7 个返回。
+
+有一种情况是 limit/skip 无法达到 short-circuiting 目的的，就是把它们放在 Stream 的排序操作后，原因跟 sorted 这个 intermediate 操作有关：此时系统并不知道 Stream 排序后的次序如何，所以 sorted 中的操作看上去就像完全没有被 limit 或者 skip 一样。
+
+```java
+//limit 和 skip 对 sorted 后的运行次数无影响
+List<Person> persons = new ArrayList();
+ for (int i = 1; i <= 5; i++) {
+ Person person = new Person(i, "name" + i);
+ persons.add(person);
+ }
+List<Person> personList2 = persons.stream().sorted((p1, p2) -> 
+p1.getName().compareTo(p2.getName())).limit(2).collect(Collectors.toList());
+System.out.println(personList2);
+
+output:
+name2
+name1
+name3
+name2
+name4
+name3
+name5
+name4
+[stream.StreamDW$Person@816f27d, stream.StreamDW$Person@87aac27]
+```
+即虽然最后的返回元素数量是 2，但整个管道中的 sorted 表达式执行次数没有像前面例子相应减少。
+
+最后有一点需要注意的是，对一个 parallel 的 Steam 管道来说，如果其元素是有序的，那么 limit 操作的成本会比较大，因为它的返回对象必须是前 n 个也有一样次序的元素。取而代之的策略是取消元素间的次序，或者不要用 parallel Stream。
+
+#### sorted
+
+对 Stream 的排序通过 sorted 进行，它比数组的排序更强之处在于你可以首先对 Stream 进行各类 map、filter、limit、skip 甚至 distinct 来减少元素数量后，再排序，这能帮助程序明显缩短执行时间。我们上面的例子进行优化：
+
+```java
+//优化：排序前进行 limit 和 skip
+List<Person> persons = new ArrayList();
+ for (int i = 1; i <= 5; i++) {
+ Person person = new Person(i, "name" + i);
+ persons.add(person);
+ }
+List<Person> personList2 = persons.stream().limit(2).sorted((p1, p2) -> p1.getName().compareTo(p2.getName())).collect(Collectors.toList());
+System.out.println(personList2);
+
+output:
+name2
+name1
+[stream.StreamDW$Person@6ce253f1, stream.StreamDW$Person@53d8d10a]
+```
+当然，这种优化是有 business logic 上的局限性的：即不要求排序后再取值。
+
+#### max/min/distinct
+
+min 和 max 的功能也可以通过对 Stream 元素先排序，再 findFirst 来实现，但前者的性能会更好，为 O(n)，而 sorted 的成本是 O(n log n)。同时它们作为特殊的 reduce 方法被独立出来也是因为求最大最小值是很常见的操作。
+
+```java
+//找出最长一行的长度
+BufferedReader br = new BufferedReader(new FileReader("c:\\SUService.log"));
+int longest = br.lines().
+ mapToInt(String::length).
+ max().
+ getAsInt();
+br.close();
+System.out.println(longest);
+
+//使用 distinct 来找出不重复的单词
+//找出全文的单词，转小写，并排序
+List<String> words = br.lines().
+ flatMap(line -> Stream.of(line.split(" "))).
+ filter(word -> word.length() > 0).
+ map(String::toLowerCase).
+ distinct().
+ sorted().
+ collect(Collectors.toList());
+br.close();
+System.out.println(words);
+```
+
+#### Match
+
+Stream 有三个 match 方法，从语义上说：
+
+- allMatch：Stream 中全部元素符合传入的 predicate，返回 true
+- anyMatch：Stream 中只要有一个元素符合传入的 predicate，返回 true
+- noneMatch：Stream 中没有一个元素符合传入的 predicate，返回 true
+
+它们都不是要遍历全部元素才能返回结果。例如 allMatch 只要一个元素不满足条件，就 skip 剩下的所有元素，返回 false。对清单 13 中的 Person 类稍做修改，加入一个 age 属性和 getAge 方法。
+
+```java
+List<Person> persons = new ArrayList();
+persons.add(new Person(1, "name" + 1, 10));
+persons.add(new Person(2, "name" + 2, 21));
+persons.add(new Person(3, "name" + 3, 34));
+persons.add(new Person(4, "name" + 4, 6));
+persons.add(new Person(5, "name" + 5, 55));
+boolean isAllAdult = persons.stream().
+ allMatch(p -> p.getAge() > 18);
+System.out.println("All are adult? " + isAllAdult);
+boolean isThereAnyChild = persons.stream().
+ anyMatch(p -> p.getAge() < 12);
+System.out.println("Any child? " + isThereAnyChild);
+
+output:
+All are adult? false
+Any child? true
+```
 
 
 
