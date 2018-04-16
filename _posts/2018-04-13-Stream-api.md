@@ -22,10 +22,15 @@ Stream 就如同一个迭代器（Iterator），单向，不可往复，数据�
 而和迭代器又不同的是，Stream 可以并行化操作，迭代器只能命令式地、串行化操作。顾名思义，当使用串行方式去遍历时，每个 item 读完后再读下一个 item。而使用并行去遍历时，数据会被分成多个段，其中每一个都在不同的线程中处理，然后将结果一起输出。Stream 的并行操作依赖于 Java7 中引入的 Fork/Join 框架（JSR166y）来拆分任务和加速处理过程。Java 的并行 API 演变历程基本如下：
 
 > 1.0-1.4 中的 java.lang.Thread
+
 > 5.0 中的 java.util.concurrent
+
 > 6.0 中的 Phasers 等
+
 > 7.0 中的 Fork/Join 框架
+
 > 8.0 中的 Lambda
+
 
 Stream 的另外一大特点是，数据源本身可以是无限的。
 
