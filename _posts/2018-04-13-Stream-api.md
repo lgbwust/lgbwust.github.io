@@ -7,7 +7,7 @@ tags: code
 
 > good good study, day day up~
 
-====
+======
 
 ## Stream API简介
 
@@ -494,4 +494,4 @@ Adult number: 77
 - 可以是无限的
 - 集合有固定大小，Stream 则不必。limit(n) 和 findFirst() 这类的 short-circuiting 操作可以对无限的 Stream 进行运算并很快完成。
 
-====
+======
