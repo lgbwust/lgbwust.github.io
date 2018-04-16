@@ -352,7 +352,7 @@ Stream 有三个 match 方法，从语义上说：
 - anyMatch：Stream 中只要有一个元素符合传入的 predicate，返回 true
 - noneMatch：Stream 中没有一个元素符合传入的 predicate，返回 true
 
-它们都不是要遍历全部元素才能返回结果。例如 allMatch 只要一个元素不满足条件，就 skip 剩下的所有元素，返回 false。对清单 13 中的 Person 类稍做修改，加入一个 age 属性和 getAge 方法。
+它们都不是要遍历全部元素才能返回结果。例如 allMatch 只要一个元素不满足条件，就 skip 剩下的所有元素，返回 false。对上面例子中的 Person 类稍做修改，加入一个 age 属性和 getAge 方法。
 
 ```java
 List<Person> persons = new ArrayList();
