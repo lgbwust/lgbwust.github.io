@@ -1,6 +1,6 @@
 ---
 layout: post
-title: java8 函数式接口
+title: Java8 函数式接口
 categories: [java]
 tags: code
 ---
