@@ -38,6 +38,17 @@ Thread 类的构造函数想要一个实现 Runnable 的实例。在本例中，
 
 任何满足单一抽象方法法则的接口，都会被自动视为函数接口。这包括 Runnable 和 Callable 等传统接口，以及您自己构建的自定义接口。
 
+Java 在新版本中也定义了相应的函数式接口以及基本数据类型的子接口，它们都被放在了 java.util.function 包下
+
+类名 | 含义
+:---:|:---|
+Predicate | 传入一个参数，返回一个 boolean 结果，方法为 boolean test(T t)
+Consumer | 传入一个参数，无返回值，方法为 void accept(T t)
+Function | 传入一个参数，返回一个结果，方法为 R apply(T t)
+Supplier | 无参数传入，返回一个结果，方法为 T get()
+UnaryOperator | 一元操作符，继承 Function，传入参数的类型和返回类型相同
+BinaryOperator | 二元操作符，传入的两个参数的类型和返回类型相同，继承 BiFunction
+
 ## 内置函数接口
 
 除了已经提到的单一抽象方法之外，JDK 8 还包含多个新函数接口。最常用的接口包括 `Function<T, R>、Predicate<T> `和` Consumer<T>`，它们是在 `java.util.function` 包中定义的。Stream 的 map 方法接受` Function<T, R>` 作为参数。类似地，filter 使用 `Predicate<T>`，`forEach `使用 `Consumer<T>`。该包还有其他函数接口，比如 `Supplier<T>、BiConsumer<T, U>` 和 `BiFunction<T, U, R>`。
