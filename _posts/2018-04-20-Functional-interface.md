@@ -41,7 +41,7 @@ Thread 类的构造函数想要一个实现 Runnable 的实例。在本例中，
 Java 在新版本中也定义了相应的函数式接口以及基本数据类型的子接口，它们都被放在了 java.util.function 包下
 
 类名 | 含义
-:---:|:---|
+:---:|:---:|
 Predicate | 传入一个参数，返回一个 boolean 结果，方法为 boolean test(T t)
 Consumer | 传入一个参数，无返回值，方法为 void accept(T t)
 Function | 传入一个参数，返回一个结果，方法为 R apply(T t)
