@@ -87,6 +87,7 @@ String reserved: avaJ ot rewop dda adbmal
 - 对于具体（或者任意）对象的实例方法引用，在实例方法名称和其所属类型名称间加上分隔符 ：
 - 与引用静态方法引用相比，都换为实例对象的而已。
 
+
 ```java
 /*
 * 函数式接口
@@ -187,6 +188,7 @@ strs contains 2 Twos
 
 ### 构造方法引用
 
+
 #### 构造方法引用 （也可以称作构造器引用）
 
 组成语法格式：`Class::new`
@@ -242,4 +244,6 @@ val in mc is: 100
 IntFunction<int[]> arrayMaker = int[]::new;
 int[] array = arrayMaker.apply(10) // 创建数组 int[10]
 ```
+## 总结
 
+方法引用仅仅是Lambda的配套服务，主要目的是通过名字来获得Lambda，重复利用已有的方法。
