@@ -7,6 +7,8 @@ tags: code
 
 > good good study, day day up~
 
+---
+
 ## java8新特性
 
 ### lambda表达式
@@ -155,3 +157,4 @@ G1 垃圾回收器是 JDK 9 中 Hotspot 的默认垃圾回收器，而 JDK 10 �
 
 OpenJDK 10 的源码结构相对于 OpenJDK 9 来说发生了巨大的变化。现在 OpenJDK 的结构变的更加简单清晰，我们可以用 tree 命令比较一下 OpenJDK 9 和 OpenJDK 10 的源代码结构
 
+---
