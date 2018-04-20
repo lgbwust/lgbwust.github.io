@@ -1,6 +1,6 @@
 ---
 layout: post
-title: jdk8-10新特性学习简介
+title: Java 8-10 新特性简介
 categories: [java]
 tags: code
 ---
@@ -9,7 +9,7 @@ tags: code
 
 ---
 
-## java8新特性
+## Java8新特性
 
 ### lambda表达式
 
@@ -53,7 +53,7 @@ Java 8通过发布新的Date-Time API (JSR 310)来进一步加强对日期与时
 
 在Java 8中，Base64编码已经成为Java类库的标准。Java 8 内置了 Base64 编码的编码器和解码器。Base64工具类提供了一套静态方法获取下面三种BASE64编解码器：基本：输出被映射到一组字符A-Za-z0-9+/，编码不添加任何行标，输出的解码仅支持A-Za-z0-9+/。URL：输出映射到一组字符A-Za-z0-9+_，输出是URL和文件MIME：输出隐射到MIME友好格式。输出每行不超过76字符，并且使用'\r'并跟随'\n'作为分割。编码输出最后没有行分割。
 
-## java9新特性
+## Java9新特性
 
 ### jshell
 
@@ -108,7 +108,7 @@ http://www.importnew.com/17262.html
 
 http://liugang594.iteye.com/blog/2063432
 
-## java10新特性
+## Java10新特性
 
 这次的 JDK 10 只是一个小版本更新，不过还是引入了一些非常重要的改变，我就挑几个对一般开发者影响重大的特性说说吧。
 
