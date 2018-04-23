@@ -16,6 +16,9 @@ Thumbs.db
 # Compiled C++ files
 *.out
 
+# Java class file
+*.class
+
 # Application specific files
 venv
 node_modules
