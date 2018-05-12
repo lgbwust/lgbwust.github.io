@@ -65,23 +65,20 @@ layout: default
 
 <!--评论功能-->
 <section class="comments inner duoshuo">
-<!-- Disqus Comment BEGIN -->
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'iceliu'; // required: replace example with your forum shortname
-
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-<!-- Disqus Comment END -->
-
+	<div id="gitmentContainer"></div>
+	<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+	<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+	<script>
+	var gitment = new Gitment({
+    	owner: 'lgbwust',
+    	repo: 'lgbwust.github.io',
+    	oauth: {
+        	client_id: '1e1b8c3404206645df30',
+        	client_secret: 'af1a32ac0dd3bfd1d65dd97ea8527219921c7241',
+    	},
+	});
+	gitment.render('gitmentContainer');
+</script>
 </section>
 </div>
 
