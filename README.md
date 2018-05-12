@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/BVLC/caffe.svg?branch=master)](https://travis-ci.org/BVLC/caffe)
+[![Build Status](https://travis-ci.org/BVLC/caffe.svg?branch=master)](https://lgbwust.github.io)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 
