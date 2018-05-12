@@ -1,4 +1,4 @@
-[![Powered By](https://img.shields.io/badge/used%20by-Github%20Pages-brightgreen.svg)](https://jekyllrb.com/)
+[![Powered By](https://img.shields.io/badge/used%20by-Github%20Pages-brightgreen.svg)](https://pages.github.com/)
 [![Powered By](https://img.shields.io/badge/Powered%20by-jekyll-brightgreen.svg)](https://jekyllrb.com/)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://lgbwust.github.io)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
