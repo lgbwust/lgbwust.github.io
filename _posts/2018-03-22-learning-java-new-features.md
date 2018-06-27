@@ -59,7 +59,7 @@ Java 8通过发布新的Date-Time API (JSR 310)来进一步加强对日期与时
 
 使用指南:
 
-http://docs.oracle.com/javase/9/jshell/toc.htm
+https://docs.oracle.com/javase/9/jshell/toc.htm
 
 ### 私有接口方法
 
@@ -86,7 +86,7 @@ public interface MyInterface {
 HttpClient client = HttpClient.newHttpClient();
 
 HttpRequest req =
-  HttpRequest.newBuilder(URI.create("http://www.google.com"))
+  HttpRequest.newBuilder(URI.create("https://www.google.com"))
        .header("User-Agent","Java")
        .GET()
        .build();
@@ -104,9 +104,9 @@ HttpResponse<String> resp = client.send(req, HttpResponse.BodyHandler.asString()
 
 参考文章:
 
-http://www.importnew.com/17262.html
+https://www.importnew.com/17262.html
 
-http://liugang594.iteye.com/blog/2063432
+https://liugang594.iteye.com/blog/2063432
 
 ## Java10新特性
 
