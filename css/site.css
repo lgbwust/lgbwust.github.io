@@ -137,6 +137,8 @@ nav a:hover {
 
 nav a.selected {
   color: black;
+  font-family: 华文新魏;
+  font-size: 1.5rem;
 }
 
 nav a.selected:hover {
