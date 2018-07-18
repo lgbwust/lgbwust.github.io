@@ -30,6 +30,11 @@ layout: default
   	    <i class="space"></i>
   	{% endfor %}
   	<i class="space"></i> 字数:{{page.content | size |divided_by:2}}
+	<!-- id 将作为查询条件 -->
+        <span id="/visitor.html" class="leancloud_visitors" data-flag-title="文章阅读量统计">
+         <span class="post-meta-item-text">阅读次数：</span>
+         <span class="leancloud-visitors-count"></span>
+       </span>
   </ul>
 </div>
 </div>
@@ -96,6 +101,7 @@ layout: default
     				avatar:'mm', 
     				placeholder: '输入评论...',
     				path:window.location.pathname,
+				visitor: true,
         		})
     </script>
 </section>
