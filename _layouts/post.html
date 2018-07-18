@@ -9,7 +9,7 @@ $(document).ready(function(){
     var path = window.location.href;
     var url = new URL( path );
     var result = url.pathname.replace(/.html$/gi,"");
-    $(".leancloud_visitors").attr("id","/"+result);
+    $(".leancloud_visitors").attr("id",result);
 });
 </script>
 {% if page.photo %}
@@ -38,7 +38,7 @@ $(document).ready(function(){
   	{% endfor %}
   	<i class="space"></i> 字数:{{page.content | size |divided_by:2}}
 	<!-- id 将作为查询条件 -->
-        <span id="/visitor.html" class="leancloud_visitors" data-flag-title="文章阅读量统计">
+        <span class="leancloud_visitors" data-flag-title="文章阅读量统计">
          <span class="post-meta-item-text">阅读次数:</span>
          <span class="leancloud-visitors-count"></span>
        </span>
