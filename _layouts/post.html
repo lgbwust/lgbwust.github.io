@@ -7,7 +7,7 @@ layout: default
 <script>
 $(document).ready(function(){
     var path = window.location.href;
-    var url = new URL( string );
+    var url = new URL( path );
     var result = url.pathname.replace(/.html$/gi,"");
     $(".leancloud_visitors").attr("id","/"+result);
 });
