@@ -31,3 +31,9 @@ port: 4001
 # White-listed plugins
 gems:
   - jekyll-sitemap
+
+#hits
+leancloud:
+  enable: true
+  app_id: G8qPSrQdYR2SqtFezSJ1gnep-gzGzoHsz
+  app_key: QurmImuKmMC6vf73WAnEivtq
