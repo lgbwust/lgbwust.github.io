@@ -1,3 +1,4 @@
+
 ---
 layout: default
 ---
@@ -9,6 +10,9 @@ layout: default
 <script>
 	$(document).ready(function(){
 		$(".power").css("display","none");
+		$('.vnick').prop("required", true);
+		$('.vmail').prop("required", true);
+		$('.vlink').prop("required", true);
 	})
 </script>
 {% if page.photo %}
