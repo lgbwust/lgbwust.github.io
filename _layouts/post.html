@@ -9,9 +9,14 @@ layout: default
 <script>
 	$(document).ready(function(){
 		$(".power").css("display","none");
-		$('.vnick').prop("required='required'", true);
-		$('.vmail').prop("required='required'", true);
-		$('.vlink').prop("required='required'", true);
+		if ($('.vnick').val().trim()=="") {
+			alert("请输入昵称");
+			return;
+		}
+		if ($('.vmail').val().trim()=="") {
+			alert("请输入邮箱");
+			return;
+		}
 	})
 </script>
 {% if page.photo %}
