@@ -18,7 +18,7 @@
 
 >   博客
 
->   无后端评论系统[Valine](https://valine.js.org/)及阅读量统计
+>   无后端评论系统[Valine](https://valine.js.org/)、阅读量统计、[Google Analytics](https://analytics.google.com)、[CNZZ](https://web.umeng.com/main.php?c=site&a=show)
 
 >   豆瓣读书(由于豆瓣api已经不再向个人开放，故此功能停用)
 
