@@ -20,6 +20,21 @@
      gtag('js', new Date());
      gtag('config', 'UA-122943074-1');
   </script>
+  <!-- 百度链接推送 -->
+  <script>
+	(function(){
+    		var bp = document.createElement('script');
+    		var curProtocol = window.location.protocol.split(':')[0];
+    		if (curProtocol === 'https') {
+        		bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    		}
+    		else {
+       	 	bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    		}
+    		var s = document.getElementsByTagName("script")[0];
+    		s.parentNode.insertBefore(bp, s);
+		})();
+  </script>
   {% if page.description %}<meta name="description" content="{{page.description}}" />{% endif %}
   <link href="/blog/feed.xml" type="application/rss+xml" rel="alternate" title="Latest 10 blog posts (atom)" />
 
