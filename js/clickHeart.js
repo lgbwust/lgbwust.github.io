@@ -38,7 +38,7 @@ createHeart(event);
 }
 }
 function createHeart(event){
-var d = document.createElement("div");
+var d = document.createElement("span");
 d.className = "heart";
 hearts.push({
 el : d,
