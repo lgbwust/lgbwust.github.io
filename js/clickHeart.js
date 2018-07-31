@@ -12,7 +12,7 @@ setTimeout(callback,1000/60);
 })();
 init();
 function init(){
-css(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}");
+css(".heart{width: 10px !important;height: 10px !important;position: fixed !important;background: #f00 !important;transform: rotate(45deg) !important;-webkit-transform: rotate(45deg) !important;-moz-transform: rotate(45deg) !important;}.heart:after,.heart:before{content: '';width: inherit !important;height: inherit !important;background: inherit !important;border-radius: 50% !important;-webkit-border-radius: 50% !important;-moz-border-radius: 50% !important;position: absolute !important;}.heart:after{top: -5px !important;}.heart:before{left: -5px !important;}");
 attachEvent();
 gameloop();
 }
@@ -38,7 +38,7 @@ createHeart(event);
 }
 }
 function createHeart(event){
-var d = document.createElement("span");
+var d = document.createElement("div");
 d.className = "heart";
 hearts.push({
 el : d,
