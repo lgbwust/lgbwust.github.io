@@ -35,6 +35,14 @@
     		s.parentNode.insertBefore(bp, s);
 		})();
   </script>
+  <!-- 测试http跳转https -->
+  <script type="text/javascript">
+	  var url = window.location.href;
+	  if (url.indexOf("https") < 0) {
+		  url = url.replace("http:", "https:");
+		  window.location.replace(url);
+	  }
+  </script>
   {% if page.description %}<meta name="description" content="{{page.description}}" />{% endif %}
   <link href="/blog/feed.xml" type="application/rss+xml" rel="alternate" title="Latest 10 blog posts (atom)" />
 
