@@ -42,8 +42,7 @@
             y: event.clientY - 5,
             scale: 1,
             alpha: 1,
-            color: randomColor(),
-            z-index: 99999
+            color: randomColor()
         });
         document.body.appendChild(d);
     }
