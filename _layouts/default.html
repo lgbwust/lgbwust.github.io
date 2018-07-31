@@ -37,6 +37,7 @@
   <!-- 百度链接推送 -->
   <script src="https://zz.bdstatic.com/linksubmit/push.js"></script>
   <!-- 鼠标点击特效 -->
+  <script>
   (function(window,document,undefined){
 var hearts = [];
 window.requestAnimationFrame = (function(){
@@ -103,6 +104,7 @@ function randomColor(){
 return "rgb("+(~~(Math.random()*255))+","+(~~(Math.random()*255))+","+(~~(Math.random()*255))+")";
 }
 })(window,document);
+</script>
   {% if page.description %}<meta name="description" content="{{page.description}}" />{% endif %}
   <link href="/blog/feed.xml" type="application/rss+xml" rel="alternate" title="Latest 10 blog posts (atom)" />
 
