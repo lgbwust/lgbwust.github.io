@@ -2,7 +2,7 @@
 layout: post
 title: 项目中遇到的问题及解决方案
 categories: [工作]
-tags: 随笔
+tags: 总结
 ---
 
 > 即使没有风，我也要扬帆起航
@@ -13,15 +13,24 @@ tags: 随笔
 
 浏览器从一个域名的网页去请求另一个域名的资源时，域名、端口、协议任一不同，都是跨域
 以下几种情况会出现跨域的问题
-- 域名： 
+- 域名：
+
 主域名不同 http://www.baidu.com/index.html –>http://www.sina.com/test.js 
+
 子域名不同 http://www.666.baidu.com/index.html –>http://www.555.baidu.com/test.js 
-域名和域名ip http://www.baidu.com/index.html –>http://180.149.132.47/test.js 
+
+域名和域名ip http://www.baidu.com/index.html –>http://180.149.132.47/test.js
+
 - 端口： 
+
 http://www.baidu.com:8080/index.html–> http://www.baidu.com:8081/test.js 
-- 协议： 
-http://www.baidu.com:8080/index.html–> https://www.baidu.com:8080/test.js 
-- 备注： 
+
+- 协议：
+
+http://www.baidu.com:8080/index.html–> https://www.baidu.com:8080/test.js
+
+- 备注：
+
 1、端口和协议的不同，只能通过后台来解决 
 2、localhost和127.0.0.1虽然都指向本机，但也属于跨域
 
@@ -38,9 +47,20 @@ http://www.baidu.com:8080/index.html–> https://www.baidu.com:8080/test.js
 #### window.name+iframe跨域
 window.name属性的独特之处： name值在不同的页面（甚至不同域名）加载后依旧存在，并且可以 支持非常长的name值（2MB） 总结： 通过iframe的src属性由外域转向本地域，跨域数据即由iframe的window.name从外域传递到本地域。这个就巧妙地绕过了浏览器的 跨域访问限制，但同时它又是安全操作。
 #### postMessage跨域
-postMessage是HTML5 XMLHttpRequest Level 2中的Api， 且是为数不多可以跨域操作的window属性之一，它可用与解决以下 方面的问题：1、页面和其打开的新窗口的数据传递2、多窗口之间消息传递3、页面之嵌套的iframe消息传递4、上面三个场景的跨域数据传递 用法： postMessage（data，origin）方法接收两个参数 data：html5规范支持任意基本类型或可复制的对象，但部分浏览器 支持字符串，所以传参时最好用JSON.stringfiy()序列化。 origin：协议+主机+端口号，也可以设置为"*",表示可以传递给任意 窗口，如果要制定和当前窗口同源的话设置为"/"。
+postMessage是HTML5 XMLHttpRequest Level 2中的Api， 且是为数不多可以跨域操作的window属性之一，它可用与解决以下 方面的问题：
+
+- 页面和其打开的新窗口的数据传递
+- 多窗口之间消息传递
+- 页面之嵌套的iframe消息传递
+
+上面三个场景的跨域数据传递 用法： postMessage（data，origin）方法接收两个参数 data：html5规范支持任意基本类型或可复制的对象，但部分浏览器 支持字符串，所以传参时最好用JSON.stringfiy()序列化。 origin：协议+主机+端口号，也可以设置为"*",表示可以传递给任意 窗口，如果要制定和当前窗口同源的话设置为"/"。
+
 #### 跨域资源共享（CORS）
-普通跨域请求： 只服务端设置Access-Control-Allow-Origin即可，前端无需设置， 若要带cookie请求，前后端都需要设置。 需注意的是： 由于同源策略的限制，所读取的cookie为跨域请求接口所在域的cookie， 而非当前页。如果想实现当前页cookie的写入，可参考下文 7、nginx反 向代理中设置proxy_cookiedomain和 8、Nodejs中间件代理中cookieDo mainRewrite参数的设置。 目前，所有浏览器都支持该功能（IE8+：IE8/9需要使用XDomainRequest 对象来支持CORS），CORS也已经成为主流的跨域解决方案。
+
+普通跨域请求： 只服务端设置Access-Control-Allow-Origin即可，前端无需设置， 若要带cookie请求，前后端都需要设置。 需注意的是： 由于同源策略的限制，所读取的cookie为跨域请求接口所在域的cookie， 而非当前页。如果想实现当前页cookie的写入，可参考下文 
+nginx反向代理中设置proxy_cookiedomain和 Nodejs中间件代理中cookieDo mainRewrite参数的设置。 
+目前，所有浏览器都支持该功能（IE8+：IE8/9需要使用XDomainRequest 对象来支持CORS），CORS也已经成为主流的跨域解决方案。
+
 #### nginx代理跨域
  nginx配置解决iconfont跨域： 浏览器跨域范文Js、Css、Img等常规静态资源被同源策略许可，单iconfont 字体文件（eot/otf/ttf/woff/svg）例外，此时可在nginx的静态资源服务 器中加入配置。
 #### Nodejs中间件代理跨域
@@ -118,6 +138,8 @@ maven项目打包，有时会遇到项目中一些文件没有被打包进去，
 ## 代码复写
 
 由于项目中使用的框架都是架构组重新封装的，由于种种原因，我们无法得到源码，同时一些项目的具体需求，我们需要对jar包的内容进行部分改造，这时候，可以选择对jar包进行复写
+
 方法就是在项目，写同样的路径和文件名，然后对文件进行重新编写。项目启动时，会优先加载项目中的文件，从而实现对jar包内容的复写。
+
 **注意：jar包中并不是所有的内容都能够并复写，目前实测发现，properties文件可以复写，dao层的数据库文件xml并不能复写，项目会因为xml重复而报错。**
 
