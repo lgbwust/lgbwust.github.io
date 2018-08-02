@@ -3,7 +3,7 @@
 <script type="text/javascript">
 function modal(target) {
             this.$modal = $(target);
-            this.$off = this.$modal.querySelector('.close');
+            this.$off = this.$modal.getElementByclassName('.close');
 
             var _this = this;
 
