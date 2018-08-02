@@ -23,6 +23,22 @@
     - Iceliu
     {% endif %}
   </title>
+  <script>
+	(function() {
+    		var OriginTitile = document.title, titleTime;
+    		document.addEventListener('visibilitychange', function() {
+        	if (document.hidden) {
+            		document.title = '咦？你去哪里了！';
+            		clearTimeout(titleTime);
+        	} else {
+            		document.title = '哈！又好了!';
+            		titleTime = setTimeout(function() {
+                	document.title = OriginTitile;
+            		},2000);
+        	}
+    	});
+    })();
+  </script>
   <!-- 百度链接推送 -->
   <script>
 	(function(){
