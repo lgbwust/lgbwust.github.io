@@ -3,15 +3,15 @@
 <script type="text/javascript">
 function modal(target) {
             this.$modal = $(target);
-            this.$off = this.$modal.getElementByclassName('.close');
-
+            this.$off = $('.close');
+	    var mask = $('#mask');
             var _this = this;
 
             this.show = function () {
-                mask.classList.add('in');
-                _this.$modal.classList.add('ready');
+                mask.addClass('in');
+                _this.$modal.addClass('ready');
                 setTimeout(function () {
-                    _this.$modal.classList.add('in');
+                    _this.$modal.addClass('in');
                 }, 0)
             }
 
@@ -19,19 +19,17 @@ function modal(target) {
 
             this.hide = function () {
                 _this.onHide();
-                mask.classList.remove('in');
-                _this.$modal.classList.remove('in');
+                mask.removeClass('in');
+                _this.$modal.removeClass('in');
                 setTimeout(function () {
-                    _this.$modal.classList.remove('ready');
+                    _this.$modal.removeClass('ready');
                 }, 300)
             }
 
             this.toggle = function () {
-                return _this.$modal.classList.contains('in') ? _this.hide() : _this.show();
+                return _this.$modal.hasClass('in') ? _this.hide() : _this.show();
             }
 
-            Blog.hideOnMask.push(this.hide);
-            this.$off && this.$off.addEventListener(even, this.hide);
         }
 function reward() {
             var modal = new this.modal('#reward');
@@ -74,4 +72,5 @@ function reward() {
         
     </div>
 </div>
+<div class="mask" id="mask"></div>
 
