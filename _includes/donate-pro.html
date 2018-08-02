@@ -1,7 +1,53 @@
 <link rel="stylesheet" href="../css/style.css">
-<script type="text/javascript"  src="../js/main.js"></script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript">
+function modal(target) {
+            this.$modal = $(target);
+            this.$off = this.$modal.querySelector('.close');
+
+            var _this = this;
+
+            this.show = function () {
+                mask.classList.add('in');
+                _this.$modal.classList.add('ready');
+                setTimeout(function () {
+                    _this.$modal.classList.add('in');
+                }, 0)
+            }
+
+            this.onHide = noop;
+
+            this.hide = function () {
+                _this.onHide();
+                mask.classList.remove('in');
+                _this.$modal.classList.remove('in');
+                setTimeout(function () {
+                    _this.$modal.classList.remove('ready');
+                }, 300)
+            }
+
+            this.toggle = function () {
+                return _this.$modal.classList.contains('in') ? _this.hide() : _this.show();
+            }
+
+            Blog.hideOnMask.push(this.hide);
+            this.$off && this.$off.addEventListener(even, this.hide);
+        }
+function reward() {
+            var modal = new this.modal('#reward');
+            $('#rewardBtn').addEventListener(even, modal.toggle);
+
+            var $rewardToggle = $('#rewardToggle');
+            var $rewardCode = $('#rewardCode');
+            if ($rewardToggle) {
+                $rewardToggle.addEventListener('change', function () {
+                    $rewardCode.src = this.checked ? this.dataset.alipay : this.dataset.wechat
+                })
+            }
+        }
+</script>
 <div class="page-reward">
-    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赞赏</a>
+    <a id="rewardBtn" href="javascript:;" onclick="reward()" class="page-reward-btn waves-effect waves-circle waves-light">赞赏</a>
 </div>
 <div id="reward" class="page-modal reward-lay">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
