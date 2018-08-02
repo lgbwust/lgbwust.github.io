@@ -15,10 +15,8 @@ function modal(target) {
                 }, 0)
             }
 
-            this.onHide = noop;
 
             this.hide = function () {
-                _this.onHide();
                 mask.removeClass('in');
                 _this.$modal.removeClass('in');
                 setTimeout(function () {
