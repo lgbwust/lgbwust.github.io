@@ -68,3 +68,38 @@ tags: code
 通过上面的几点特征， 我们已经能够体会到， 要实施 一个完美的微服务架构， 需要考虑的设计与成本并不小， 对千没有足够经验的团队来说， 甚至要比单体应用付出更多的代价。所以， 在很多情况下， 架构师都会以**演进的方式进行系统的构建**。 在初期， 以单体系统的方式来设计和实施， 一方面系统体量初期并不会很大， 构建和维护成本都不高。 另一方面， 初期的核心业务在后期通常也不会发生巨大的改变。 随着系统的发展或者业务的需要， 架构师会将一些经常变动或是有一定时间效应的内容进行微服务处理， 并逐渐将原来在单体系统中多变的模块逐步拆分出来， 而稳定不太变化的模块就形成一个核心微服务存在于整个架构之中。
 
 ## Spring Cloud
+
+### 业务对微服务的贡献
+
+- **服务治理：**阿里巴巴开源的[Dubbo](https://github.com/apache/incubator-dubbo)和当当网在其基础上扩展的[DubboX](https://github.com/dangdangdotcom/dubbox)、 Netflix的[Eureka](https://github.com/Netflix/eureka)、Apache的[Consul](https://github.com/hashicorp/consul)等。
+- **分布式配置管理：**百度的[Disconf](https://github.com/knightliao/disconf)、 Netflix的[Archaius](https://github.com/Netflix/archaius)、360的[QConf](https://github.com/Qihoo360/QConf)、SpringCloud的[Config](http://cloud.spring.io/spring-cloud-config/single/spring-cloud-config.html)、 淘宝的[Diamond](https://blog.csdn.net/u013970991/article/details/52088350)等。
+- **批量任务：**当当网的[Elastic-Job](https://github.com/elasticjob/elastic-job-lite)、 Linkedln的[Azkaban](https://github.com/azkaban/azkaban)、 SpringCloud的[Task](http://spring.io/projects/spring-cloud-task)等。
+- **服务跟踪：**京东的[Hydra](https://www.oschina.net/p/jd-hydra)、SpringCloud的[Sleuth](https://cloud.spring.io/spring-cloud-sleuth/)、Twitter的[Zipkin](https://github.com/openzipkin/zipkin)等。
+- ．．．．．．
+
+### Spring Cloud简介
+
+Spring Cloud是 一个基千Spring Boot实现的微服务架构开发 工具。 它为微服务架构中涉及的配置管理、 服务治理、 断路器、 智能路由、 微代理、 控制总线、 全局锁、 决策竞选、分布式会话和集群状态管理等操作提供了 一种简单的开发方式。SpringCloud包含了多个子项目（针对分布式系统中涉及的多个不同开源产品，还可能会新增）， 如下所述。
+
+- SpringCloudConfg: 配置管理工具， 支持使用Git存储 配置内容， 可以使用它实现应用配置的外部化存储， 并支持客户端配置信息刷新、 加密／解密配置内容 等。
+- SpringCloudNetflix: 核心 组件， 对多个Netflix OSS开源套件进行整合。
+
+> Eureka: 服务治理组件， 包含服务注册中心、 服务注册与发现机制的实现。
+> Hystrix: 容错管理组件，实现断路器模式， 帮助服务依赖中出现的延迟和为故障提供强大的容错能力。
+> Ribbon: 客户端负载均衡的服务调用组件。
+> Feign: 基于Ribbon和Hystrix的声明式服务调用组件。
+> Zuul: 网关组件， 提供智能路由、 访问过滤等功能。
+> Archaius: 外部化配置组件。
+
+- Spring Cloud Bus: 事件、 消息总线， 用于传播集群中的状态变化或事件， 以触发后续的处理， 比如用来动态刷新配置等。
+- Spring Cloud Cluster: 针对 ZooKeeper、 Redis、 Hazelcast、 Consul 的选举算法和通用状态模式的实现。
+- Spring Cloud Cloudfoundry: 与 Pivotal Cloudfundry 的整合支持。
+- Spring Cloud Consul: 服务发现与配置管理工具。
+- Spring Cloud Stream: 通过 Redis、 Rabbit 或者 Kafa 实现的消费微服务， 可以通过简单的声明式模型来发送和接收消息。
+- Spring Cloud AWS: 用千简化整合 Amazon Web Service 的组件。
+- Spring Cloud Security: 安全工具包， 提供在 Zuul 代理中对 OAuth2 客户端请求的中继器。
+- Spring Cloud Sleuth: Spring Cloud 应用的分布式跟踪实现， 可以完美整合 ZipKin。
+- Spring Cloud ZooKeeper: 基于 ZooKeeper 的服务发现与配置管理组件。
+- Spring Cloud Starters: Spring Cloud 的基础组件， 它是基于 Spring Boot 风格项目的基础依赖模块。
+- Spring Cloud CLI: 用于在 Groovy 中快速创建 Spring Cloud 应用的 Spring Boot CLI插件。
+- ． ．．．．．．
