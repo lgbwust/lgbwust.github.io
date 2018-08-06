@@ -103,3 +103,11 @@ Spring Cloud是 一个基千Spring Boot实现的微服务架构开发 工具。 
 - Spring Cloud Starters: Spring Cloud 的基础组件， 它是基于 Spring Boot 风格项目的基础依赖模块。
 - Spring Cloud CLI: 用于在 Groovy 中快速创建 Spring Cloud 应用的 Spring Boot CLI插件。
 - ． ．．．．．．
+
+
+## Spring Boot构建微服务
+
+SpringBoot的宗旨并非要重写Spring或是替代Spring, 而是希望通过设计大量的自动化配置等方式来简化Spring原有样板化的配置，使得开发者可以快速构建应用。**Spring Cloud 的构建基于 Spring Boot 实现。**Spring Boot自身的优点：如自动化配置、 快速开发、 轻松部署等， 非常适合用作微服务架构中各项具体微服务的开发框架。所以我们强烈推荐使用 Spring Boot 来构建微服务， 它不仅可以帮助我们快速地构建微服务， 还可以轻松简单地**整合 Spring Cloud 实现系统服务化**， 而如果使用了传统的 Spring 构建方式的话， 在整合过程中我们还需要做更多的依赖管理工作才能让它们完好地运行起来。
+
+
+
