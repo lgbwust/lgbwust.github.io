@@ -69,7 +69,7 @@ tags: code
 
 ## Spring Cloud
 
-### 业务对微服务的贡献
+### 业界对微服务的贡献
 
 - **服务治理：**阿里巴巴开源的[Dubbo](https://github.com/apache/incubator-dubbo)和当当网在其基础上扩展的[DubboX](https://github.com/dangdangdotcom/dubbox)、 Netflix的[Eureka](https://github.com/Netflix/eureka)、Apache的[Consul](https://github.com/hashicorp/consul)等。
 - **分布式配置管理：**百度的[Disconf](https://github.com/knightliao/disconf)、 Netflix的[Archaius](https://github.com/Netflix/archaius)、360的[QConf](https://github.com/Qihoo360/QConf)、SpringCloud的[Config](http://cloud.spring.io/spring-cloud-config/single/spring-cloud-config.html)、 淘宝的[Diamond](https://blog.csdn.net/u013970991/article/details/52088350)等。
@@ -109,5 +109,43 @@ Spring Cloud是 一个基千Spring Boot实现的微服务架构开发 工具。 
 
 SpringBoot的宗旨并非要重写Spring或是替代Spring, 而是希望通过设计大量的自动化配置等方式来简化Spring原有样板化的配置，使得开发者可以快速构建应用。**Spring Cloud 的构建基于 Spring Boot 实现。**Spring Boot自身的优点：如自动化配置、 快速开发、 轻松部署等， 非常适合用作微服务架构中各项具体微服务的开发框架。所以我们强烈推荐使用 Spring Boot 来构建微服务， 它不仅可以帮助我们快速地构建微服务， 还可以轻松简单地**整合 Spring Cloud 实现系统服务化**， 而如果使用了传统的 Spring 构建方式的话， 在整合过程中我们还需要做更多的依赖管理工作才能让它们完好地运行起来。
 
+### 启动Spring Boot应用的方式
+
+- 作为一个Java应用程序， 可以直接通过运行拥有**main函数**的类来启动。
+- 执行Maven命令`mvn spring-boot:run `启动应用
+- 在服务器上部署运行时， 通常先使用 mvn ins七all 将应用打包成 jar包， 再通过`java -jar xxx. jar`来启动应用。
+
+### Spring Boot配置
+
+Spring Boot 的默认配置文件位置为 src/main/resources/application.properties.
+
+**命令行参数**：在用命 令 行 方 式 启 动 Spring Boot 应 用 时， 连续的两个减号－－就 是对application.properties中的属性值进行赋值的标识。所以，java -jar xxx.jar--server.port=8888命令，等价于在 application.properties 中添加属性server.port= 8888。
+
+**多环境配置**: 在 Spring Boot 中， 多环境配置的文件名需要满足 application-{profile}.properties的格式， 其中{profile}对应你的环境标识， 如下所示。
+
+- application-dev.properties: 开发环境。
+- application-test.properties: 测试环境。
+- application-prod.properties: 生产环境。
+
+至于具体哪个配置文件会被加载， 需要在 application.properties 文件中通过spring.profiles.active 属性来设置， 其 值 对应配置文件中的{profile}值。 如spring.profiles.active= test 就会加载 application-test.properties配置文件内容。
+
+### 加载顺序
+
+在上面的例子中， 我们将Spring Boot应用需要的配置内容都放在了项目工程中， 已经能够通过spring.profiles.active或是通过Maven来实现多环境的支待。 但是， 当团队逐渐壮大， 分工越来越细致之后， 往往不需要让开发人员知道测试或是生产环境的细节， 而是希望由每个环境各自的负责人(QA或是运维）来集中维护这些信息。 那么如果还是以这样的方式存储配置内容， 对于不同环境配置的修改就不得不去获取工程 内容来修改这些配置内容， 当应用非常多的时候就变得非常不 方便。 同时， 配置内容对 开发人员都可见， 这本身也是一种安全隐患。 对此， 出现了很多将 配置内容外部化的框架和工具， 后续将要介绍的Spring Cloud Config 就是其中之一， 为了后续能更好地理解 Spring CloudConfg的加载机制， 我们需要对Spring Boot对数据文件的加载机制有一定的了解。为了能够更合理地重写各属性的值，SpringBoot 使用了下面这种较为特别的属性加载顺序：
+
+1. 在命令行中传入的参数。
+2. SPRING APPLICATION JSON中的属性。 SPRING_APPLICATION—JSON是以JSON格式配置在系统环境变量中的内容。
+3. java:comp/env中的JNDI 属性。
+4. Java的系统属性， 可以通过System.getProperties()获得的内容。
+5. 操作系统的环境变量 。
+6. 通过random.* 配置的随机属性。
+7. 位于当前应用 jar 包之外， 针对不同{profile}环境的配置文件内容， 例如application-{profile}.properties或是YAML定义的配置文件。
+8. 位于当前应用jar包之内 ， 针对不同{profile}环境的配置文件内容，例如application-{profile}.properties或是YAML定义的配置文件。
+9. 位于当前应用jar包之外的application.properties和YAML配置内容。
+10. 位于当前应用jar包之内的application.properties和YAML配置内容。
+11. 在@Configuration注解修改的类中，通过@PropertySource注解定义的属性。
+12. 应用默认属性，使用SpringApplication.setDefaultProperties 定义的内容。
+
+优先级按上面的顺序由高到低， 数字越小优先级越高。可以看到，其中第7项和第9项 都是从应用jar包之外读取配置文件，所以，实现外部化配置的原理就是从此切入，为其指定外部配置文件的加载位置来取代jar包之内的配置内容。 通过这样的实现，我们的工程在配置中就变得非常干净，只需在本地放置开发需要的配置即可， 而不用关心其他环境的配置，由其对应环境的负责人去维护即可。
 
 
