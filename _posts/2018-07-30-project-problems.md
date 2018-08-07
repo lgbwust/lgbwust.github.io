@@ -143,3 +143,11 @@ maven项目打包，有时会遇到项目中一些文件没有被打包进去，
 
 **注意：jar包中并不是所有的内容都能够并复写，目前实测发现，properties文件可以复写，dao层的数据库文件xml并不能复写，项目会因为xml重复而报错。**
 
+## SQL语句中特殊字符的处理
+
+使用mybatis写sql语句，有时候前台传入参数包含一些特殊字符或者数据保留关键字时，会导致sql语句语法错误。这个问题是我在处理spring boot多数据源时遇到的。由于项目需要，需要同时支持Oracle、SQL Server、Mysql三套不同的数据库。下面将不同数据库处理特殊字符的方法记录下来，供以后参考。
+
+- Oracle **使用分号""**  TRUNCATE table "${owner}".""${tableName}
+- SQL Server **使用中括号[]** drop table .[${owner}].[${tableName}]
+- Mysql **使用``**  drop table `${owner}`.`${tableName}` cascade
+
