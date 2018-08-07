@@ -159,3 +159,12 @@ Spring Boot 的默认配置文件位置为 src/main/resources/application.proper
 
 ## Spring Cloud Eureka 服务治理
 
+Spring Cloud Eureka是 Spring Cloud Netflix 微服务套件中的一部分， 它基于 Netflix Eureka 做了二次封装， 主要负责完成微服务架构中的服务治理功能。 Spring Cloud 通过为Eureka 增加了 Spring Boot 风格的自动化配置，我们只需通过简单引入依赖和注解配置就能让 Spring Boot 构建的微服务应用轻松地与Eureka 服务治理体系进行整合。
+
+### 服务治理
+
+**服务治理可以说是微服务架构中最为核心和基础的模块， 它主要用来实现各个微服务实例的自动化注册与发现。**
+
+为了解决微服务架构中的服务实例维护问题， 产生了大量的服务治理框架和产品。 这些框架和产品的实现都围绕着服务注册与服务发现机制来完成对微服务应用实例的自动化管理，引入了服务治理。
+
+
