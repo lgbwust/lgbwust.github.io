@@ -149,5 +149,9 @@ maven项目打包，有时会遇到项目中一些文件没有被打包进去，
 
 - Oracle **使用分号""**  TRUNCATE table "${owner}".""${tableName}
 - SQL Server **使用中括号[]** drop table .[${owner}].[${tableName}]
-- Mysql **使用``**  drop table `${owner}`.`${tableName}` cascade
+- Mysql **使用``**  drop table `${owner}`.`${tableName}` cascade     ``
 
+
+## SQL语句分页查询
+
+不同数据库有着不同的分页方法
