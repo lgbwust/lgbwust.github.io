@@ -158,7 +158,7 @@ maven项目打包，有时会遇到项目中一些文件没有被打包进去，
 
 > **Oracle**: 
 
-`sql
+```sql
 SELECT * FROM  
 (  
 SELECT A.*, ROWNUM RN  
@@ -166,29 +166,30 @@ FROM (SELECT * FROM TABLE_NAME) A
 WHERE ROWNUM <= 40  
 )  
 WHERE RN >= 21 
-`
+```
 
 > **SQL Server**: 
 
-`sql
+```sql
 SELECT id,dtime FROM dbo.TestTab
 ORDER BY id
 OFFSET 1 ROWS FETCH NEXT 100 ROWS ONLY
-`
+```
 
 > **Mysql**: 
 
-`sql
+```sql
 SELECT id,dtime FROM dbo.TestTab
 ORDER BY id limit 4 offset 9
-`
+```
 
 问题来了，项目中使用mybatis持久化，项目需要支持三种数据库的实时切换查询。经网上查询，项目启动时，mybatis会默认载入第一次的数据库类型进行初始化操作，由于项目的主数据库为Oracle，所以分页语句都是用的oracle。由于mysql和sqlserver默认无行号，不支持Oracle的分页查询sql，导致项目中的分页查询报错。
 
 怎么解决这个问题呢？有两种方案。一是不用框架的分页查询方法，自己手动写分页sql；二是使用oracle分页方法，但是对sql语句进行适当改造。
 
 两种方法都可行，最终选用方案二。首页，复写框架的oracle.properties
-`sql
+
+```sql
 limitBefore=select * from ( select a.*, ROWNUM rnum from (
 limitAfter= ) a where ROWNUM < #{page.lastRow}) where rnum  >= #{page.firstRow}
 
@@ -197,9 +198,11 @@ limitAfter= ) a where ROWNUM < #{page.lastRow}) where rnum  >= #{page.firstRow}
 limitBefore=select * from ( select a.*, ROWNUM rnum from (
 limitAfter= ) a where ROWNUM < #{page.lastRow}) Z where Z.rnum  >= #{page.firstRow}
 // 为什么要加一个别名Z呢，因为mysql数据库中没有别名会报错，强制使用别名
-`
+```
+
 下面是对两种数据库分页查询sql的改造
-`sql
+
+```sql
 //SQL Server
 select T.*,rownum=ROW_NUMBER() OVER(ORDER BY (SELECT 1))
         from(
@@ -234,6 +237,6 @@ select T.*,rownum=ROW_NUMBER() OVER(ORDER BY (SELECT 1))
             </if>
         </where>
         ) T
-`
+```
 
 OK, 到此问题解决~~~
