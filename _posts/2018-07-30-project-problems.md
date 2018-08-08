@@ -154,4 +154,26 @@ maven项目打包，有时会遇到项目中一些文件没有被打包进去，
 
 ## SQL语句分页查询
 
-不同数据库有着不同的分页方法
+不同数据库分页查询语句不太一样。常用的数据库分页查询语句如下：
+
+> **Oracle**: 
+`sql
+SELECT * FROM  
+(  
+SELECT A.*, ROWNUM RN  
+FROM (SELECT * FROM TABLE_NAME) A  
+WHERE ROWNUM <= 40  
+)  
+WHERE RN >= 21 
+`
+> **SQL Server**: 
+`sql
+SELECT id,dtime FROM dbo.TestTab
+ORDER BY id
+OFFSET 1 ROWS FETCH NEXT 100 ROWS ONLY
+`
+> **Mysql**: 
+`sql
+SELECT id,dtime FROM dbo.TestTab
+ORDER BY id limit 4 offset 9
+`
