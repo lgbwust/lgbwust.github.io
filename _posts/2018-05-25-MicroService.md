@@ -210,8 +210,8 @@ tFilter实现， 该策略能够优先过滤出与请求调用 方处于同区�
 
 对于Ribbon的参数 配置通常有两种方式： 全局配置以及指定客户端配置。
  
-- 全局配置的方式很简单， 只需使用 ribbon.< key>= <value>格式进行配置即可。其中， <key>代表了 Ribbon 客户端配置的参数 名， < value>则代表了 对应参数的值。 比如， 我们可以像下面这样全局配置Ribbon创建连接的超时时间：`ribbon.ConnectTimeout=250`全局配置可以作为默认值进行设置， 当指定客户端配置 了相应key的值时， 将覆盖全局配置的内容。
-- 指定客户端的配置方式 采用 <client>.Ribbon.<key>=<value>的格式进行配置。 其中，<key>和 <value>的含义同全局配置相同， 而<client>代表了客户端的名称， 如上文中我们在@RibbonClient中指定的名称， 也可以将它理解 为是一个服务名。 为了方便理解这种配置方式， 我们举一个具体的例子： 假设，有一个服务消费者通过RestTemplate来访问hello-service 服务的/hello 接口，这时我们会这样调用
+- 全局配置的方式很简单， 只需使用 ribbon.key= value格式进行配置即可。其中，key代表了 Ribbon 客户端配置的参数名，value则代表了 对应参数的值。 比如， 我们可以像下面这样全局配置Ribbon创建连接的超时时间：`ribbon.ConnectTimeout=250`全局配置可以作为默认值进行设置， 当指定客户端配置 了相应key的值时， 将覆盖全局配置的内容。
+- 指定客户端的配置方式 采用client.Ribbon.key = value的格式进行配置。 其中，key和value的含义同全局配置相同， 而client代表了客户端的名称， 如上文中我们在@RibbonClient中指定的名称， 也可以将它理解 为是一个服务名。 为了方便理解这种配置方式， 我们举一个具体的例子： 假设，有一个服务消费者通过RestTemplate来访问hello-service 服务的/hello 接口，这时我们会这样调用
 ```
 restTemplate.getForEntity("http: //helloservice/hello", String.class) .getBody();
 ```
