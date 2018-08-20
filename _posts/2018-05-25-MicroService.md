@@ -77,7 +77,7 @@ tags: code
 - **服务跟踪：**京东的[Hydra](https://www.oschina.net/p/jd-hydra)、SpringCloud的[Sleuth](https://cloud.spring.io/spring-cloud-sleuth/)、Twitter的[Zipkin](https://github.com/openzipkin/zipkin)等。
 - ．．．．．．
 
-### Spring Cloud简介
+### 简介
 
 Spring Cloud是 一个基千Spring Boot实现的微服务架构开发 工具。 它为微服务架构中涉及的配置管理、 服务治理、 断路器、 智能路由、 微代理、 控制总线、 全局锁、 决策竞选、分布式会话和集群状态管理等操作提供了 一种简单的开发方式。SpringCloud包含了多个子项目（针对分布式系统中涉及的多个不同开源产品，还可能会新增）， 如下所述。
 
@@ -105,7 +105,7 @@ Spring Cloud是 一个基千Spring Boot实现的微服务架构开发 工具。 
 - ． ．．．．．．
 
 
-## Spring Boot构建微服务
+## 构建微服务
 
 SpringBoot的宗旨并非要重写Spring或是替代Spring, 而是希望通过设计大量的自动化配置等方式来简化Spring原有样板化的配置，使得开发者可以快速构建应用。**Spring Cloud 的构建基于 Spring Boot 实现。**Spring Boot自身的优点：如自动化配置、 快速开发、 轻松部署等， 非常适合用作微服务架构中各项具体微服务的开发框架。所以我们强烈推荐使用 Spring Boot 来构建微服务， 它不仅可以帮助我们快速地构建微服务， 还可以轻松简单地**整合 Spring Cloud 实现系统服务化**， 而如果使用了传统的 Spring 构建方式的话， 在整合过程中我们还需要做更多的依赖管理工作才能让它们完好地运行起来。
 
@@ -157,7 +157,7 @@ Spring Boot 的默认配置文件位置为 src/main/resources/application.proper
 
 **关于[actuator](https://blog.csdn.net/love3765/article/details/79291584)的使用，此处略过**
 
-## Spring Cloud Eureka 服务治理
+## 服务治理
 
 Spring Cloud Eureka是 Spring Cloud Netflix 微服务套件中的一部分， 它基于 Netflix Eureka 做了二次封装， 主要负责完成微服务架构中的服务治理功能。 Spring Cloud 通过为Eureka 增加了 Spring Boot 风格的自动化配置，我们只需通过简单引入依赖和注解配置就能让 Spring Boot 构建的微服务应用轻松地与Eureka 服务治理体系进行整合。
 
@@ -196,7 +196,7 @@ Spring Cloud R巾bon 是一个基于 HTTP 和 TCP 的客户端负载均衡工具
 
 ### 自动化配置
 
-- IClientCon巨g: Ribbon 的 客户端配置 ， 默认采用 com.netflix.client.config.DefaultClientConfigimpl实现。
+- IClientConfig: Ribbon 的 客户端配置 ， 默认采用 com.netflix.client.config.DefaultClientConfigimpl实现。
 - IRule: Ribbon 的负载均衡策略 ， 默认采用 com.netflix.loadbalancer.ZoneAvoidanceRule实现，该策略能够在多区域环境下选出最佳区域的实例进行
 访问。
 - IPing: Ribbon的实例检查策略，默认采用com.netflix.loadbalancer.NoOpPng实现， 该检查策略是一个特殊的实现，实际上它并不会检查实例是否可用，而是始
@@ -206,8 +206,8 @@ Spring Cloud R巾bon 是一个基于 HTTP 和 TCP 的客户端负载均衡工具
 tFilter实现， 该策略能够优先过滤出与请求调用 方处于同区域的服务实例。
 - ILoadBalancer: 负载均衡器， 默认采用 com.netflix.loadbalancer.ZoneAwareLoadBalancer实现， 它具了区域感知的能力。
   
- ### 参数配置
- 
+### 参数配置
+
 对于Ribbon的参数 配置通常有两种方式： 全局配置以及指定客户端配置。
  
 - 全局配置的方式很简单， 只需使用 ribbon.< key>= <value>格式进行配置即可。其中， <key>代表了 Ribbon 客户端配置的参数 名， < value>则代表了 对应参数的值。 比如， 我们可以像下面这样全局配置Ribbon创建连接的超时时间：`ribbon.ConnectTimeout=250`全局配置可以作为默认值进行设置， 当指定客户端配置 了相应key的值时， 将覆盖全局配置的内容。
