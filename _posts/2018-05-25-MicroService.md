@@ -194,6 +194,38 @@ Spring Cloud R巾bon 是一个基于 HTTP 和 TCP 的客户端负载均衡工具
 - 服务提供者只需要启动多个服务实例并注册到一个注册中心或是多个相关联的服务注册中心。
 - 服务消费者直接通过调用被 @LoadBalanced 注解修饰过的 RestTemplate 来实现面向服务的接口调用。
 
+### 自动化配置
+
+- IClientCon巨g: Ribbon 的 客户端配置 ， 默认采用 com.netflix.client.config.DefaultClientConfigimpl实现。
+- IRule: Ribbon 的负载均衡策略 ， 默认采用 com.netflix.loadbalancer.ZoneAvoidanceRule实现，该策略能够在多区域环境下选出最佳区域的实例进行
+访问。
+- IPing: Ribbon的实例检查策略，默认采用com.netflix.loadbalancer.NoOpPng实现， 该检查策略是一个特殊的实现，实际上它并不会检查实例是否可用，而是始
+终返回true, 默认认为所有服务实例都是可用的 。
+- ServerList<Server>: 服务实例清单的维护机制， 默认采用 com.netflix.loadbalancer.ConfigurationBasedServerList实现。
+- ServerListFilter<Server>: 服 务 实 例 清 单过滤机制，默认采用 org.springframework.cloud.netflix.ribbon.ZonePreferenceServerLis
+tFilter实现， 该策略能够优先过滤出与请求调用 方处于同区域的服务实例。
+- ILoadBalancer: 负载均衡器， 默认采用 com.netflix.loadbalancer.ZoneAwareLoadBalancer实现， 它具了区域感知的能力。
+  
+ ### 参数配置
+ 
+对于Ribbon的参数 配置通常有两种方式： 全局配置以及指定客户端配置。
+ 
+- 全局配置的方式很简单， 只需使用 ribbon.< key>= <value>格式进行配置即可。其中， <key>代表了 Ribbon 客户端配置的参数 名， < value>则代表了 对应参数的值。 比如， 我们可以像下面这样全局配置Ribbon创建连接的超时时间：`ribbon.ConnectTimeout=250`全局配置可以作为默认值进行设置， 当指定客户端配置 了相应key的值时， 将覆盖全局配置的内容。
+- 指定客户端的配置方式 采用 <client>.Ribbon.<key>=<value>的格式进行配置。 其中，<key>和 <value>的含义同全局配置相同， 而<client>代表了客户端的名称， 如上文中我们在@RibbonClient中指定的名称， 也可以将它理解 为是一个服务名。 为了方便理解这种配置方式， 我们举一个具体的例子： 假设，有一个服务消费者通过RestTemplate来访问hello-service 服务的/hello 接口，这时我们会这样调用
+```
+restTemplate.getForEntity("http: //helloservice/hello", String.class) .getBody();
+```
+如果没有服务治理框架的帮助，我们需要为该客户端指定 具体的实例清单，可以指定 服务名来做详细的配置，具体如下：
+```
+hello-service.ribbon.listOfServers=localhost:8001,localhost:8002, localhost:8003
+```
+
+
+
+
+
+
+
 
 
 
