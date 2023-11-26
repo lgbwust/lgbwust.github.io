@@ -1,0 +1,87 @@
+<!--<!DOCTYPE html>-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>相册</title>
+    <meta name="author" content="刘兵">
+    <script src="libs/jquery.js"></script>
+    <link rel="stylesheet" href="libs/fancybox/jquery.fancybox.css">
+    <link rel="stylesheet" href="libs/fancybox/helpers/jquery.fancybox-buttons.css">
+    <link rel="stylesheet" href="libs\fancybox\helpers\jquery.fancybox-thumbs.css">
+    <script src="libs/fancybox/jquery.fancybox.js"></script>
+    <script src="libs/fancybox/helpers/jquery.fancybox-buttons.js"></script>
+    <script src="libs/fancybox/helpers/jquery.fancybox-thumbs.js"></script>
+   
+     <!--css异步加载:同时加载   js是同步加载:从上到下按照顺序加载-->
+    <style>
+      body{
+        background-color: #333;
+        width:100%;
+        height:100%;
+        margin: 0;
+        overflow: hidden;
+      }
+      /*id下的所有div样式选择法*/
+      #xc div{
+        width: 100px;
+        height: 100px;
+        border: 5px solid #fff;
+        /*border-block-start: 实线;
+        border-width: 宽高;
+        border-color: 颜色;*/
+        /*在同级下,下面的样式会覆盖掉上面的样式*/
+        border-bottom: 18px solid #fff;
+        /*过渡表示2D转换*/
+        transition: transform 0.5s;
+      }
+     #xc div a{
+       /*转换为块级元素,进行宽高的设计*/
+       display: block;
+       width: 100px;
+       height: 100px;
+       /*首行缩进*/
+       text-indent: -2000px;
+       /*截取溢出部分*/
+       overflow: hidden;
+     } 
+     /*当鼠标经过这个元素的时候*/
+     #xc div:hover{
+       /*!important最重要的,前面是惊叹词*/
+          transform: scale(1.5,1.5)!important;
+          /*定位元素有层级之分的,默认是那个标签靠下,哪个记忆居上显示,我们可以通过设置层级来更改显示顺序值越大越靠上显示.*/
+          z-index: 999;
+     }
+    </style>
+</head>
+<body>
+  <audio src="audio/2.mp3" autoplay loop></audio>
+    <main id="xc">
+        <!--行内样式的写法 分开写安全好维护-->
+        <div style="background-image:url(images/thumbs/0.jpg)"> <a href="images/0.jpg" rel="group">你发的第一照片！</a></div>
+        <div style="background-image:url(images/thumbs/1.jpg)"><a href="images/1.jpg" rel="group">深圳</a></div>
+        <div style="background-image:url(images/thumbs/2.jpg)"><a href="images/2.jpg" rel="group">你说你开心花钱拍的</a></div>
+        <div style="background-image:url(images/thumbs/3.jpg)"><a href="images/3.jpg" rel="group">这张等你来补充</a></div>
+        <div style="background-image:url(images/thumbs/4.jpg)"><a href="images/4.jpg" rel="group">研究生毕业答辩</a></div>
+        <div style="background-image:url(images/thumbs/5.jpg)"><a href="images/5.jpg" rel="group">花</a></div>
+        <div style="background-image:url(images/thumbs/6.jpg)"><a href="images/6.jpg" rel="group">我的屏保及锁屏，超开心的</a></div>
+        <div style="background-image:url(images/thumbs/7.jpg)"><a href="images/7.jpg" rel="group">研究生毕业照</a></div>
+        <div style="background-image:url(images/thumbs/8.jpg)"><a href="images/8.jpg" rel="group">世界之窗</a></div>
+        <div style="background-image:url(images/thumbs/9.jpg)"><a href="images/9.jpg" rel="group">好看</a></div>
+        <div style="background-image:url(images/thumbs/10.jpg)"><a href="images/10.jpg" rel="group">实验室</a></div>
+        <div style="background-image:url(images/thumbs/11.jpg)"><a href="images/11.jpg" rel="group">这张不知道，等你来补充</a></div>
+        <div style="background-image:url(images/thumbs/12.jpg)"><a href="images/12.jpg" rel="group">宿舍</a></div>
+        <div style="background-image:url(images/thumbs/13.jpg)"><a href="images/13.jpg" rel="group">山楂</a></div>
+        <div style="background-image:url(images/thumbs/14.jpg)"><a href="images/14.jpg" rel="group">宿舍，感觉这张照片很有意思</a></div>
+        <div style="background-image:url(images/thumbs/15.jpg)"><a href="images/15.jpg" rel="group">街边艺术照</a></div>
+         <div style="background-image:url(images/thumbs/16.jpg)"> <a href="images/16.jpg" rel="group">街边艺术照</a></div>
+        <div style="background-image:url(images/thumbs/17.jpg)"><a href="images/17.jpg" rel="group">街边艺术照</a></div>
+        <div style="background-image:url(images/thumbs/18.jpg)"><a href="images/18.jpg" rel="group">南京，我没记错的话</a></div>
+        <div style="background-image:url(images/thumbs/19.jpg)"><a href="images/19.jpg" rel="group">南昌</a></div>
+        <div style="background-image:url(images/thumbs/20.jpg)"><a href="images/20.jpg" rel="group">南昌</a></div>
+        <div style="background-image:url(images/thumbs/21.jpg)"><a href="images/21.jpg" rel="group">南昌</a></div>
+        <div style="background-image:url(images/thumbs/22.jpg)"><a href="images/22.jpg" rel="group">这张不知道，等你来补充</a></div>
+        <div style="background-image:url(images/thumbs/23.jpg)"><a href="images/23.jpg" rel="group">南京</a></div>
+        </main>
+</body>
+</html>
+<script src="index.js"> </script>
